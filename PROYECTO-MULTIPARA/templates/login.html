@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styles.css"></link>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"/>
+    <title>Document</title>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+          <a href="#" class="nav_logo">GESTOR DE TAREAS</a>
+          <ul class="nav_items">
+            <li class="nav_item">
+              <a href="#" class="nav_link">Inicio</a>
+              <a href="#" class="nav_link">Acerca de</a>
+            </li>
+          </ul>
+          <button class="button" id="form-open">Login</button>
+        <div>
+            <form action="/signin">
+                <button class="button">Registrarse ahora</button>
+            </form>
+        </div>
+        </nav>
+      </header>
+
+       <!-- Home -->
+        <section class="home">
+            <div class="form_container">
+                 <i class="uil uil-times form_close"></i>
+                 <!-- LOGIN -->
+                <div class="form login_form">
+                    <!-- <h1>Login</h1> -->
+                    <form  id="login-form">
+                        <!-- <label for="email">Email:</label>
+                        <input type="text" id="email" name="email">
+                        <br>
+                        <label for="password">Password</label>
+                        <input type="password" id="password"name="password">
+                        <br> -->
+                        <h2>Login</h2>
+                        <div class="input_box">
+                        <input type="email" id="email" name="email" placeholder="Ingresa tu correo" required />
+                        <i class="uil uil-envelope-alt email"></i>
+                        </div>
+                       
+                        <div class="input_box">
+                        <input type="password" id="password"name="password" placeholder="Ingresa tu contraseña" required />
+                        <i class="uil uil-lock password"></i>
+                        <i cl ass="uil uil-eye-slash pw_hide"></i>
+                        </div>
+                        <button  class="button" type="submit" id="login-btn">Login</button>
+                        <form action="/signin">
+                            <div>¿No tienes una cuenta? <a href="">REGISTRARSE</a></div> 
+                        </form>
+                        
+                    </form>
+                    <form action="/signin">
+                        <button class="button">REGISTRARSE</button>
+                    </form>
+                    <script>
+                        const loginForm =document.querySelector('#login-form')
+                        const loginButton=document.querySelector('#login-btn')
+                        loginButton.addEventListener('click',(e)=>{
+                            e.preventDefault();
+                            const email =document.querySelector('#email').value
+                            const password =document.querySelector('#password').value
+
+                            fetch('/login/user',{
+                                method:'POST',
+                                headers:{
+                                    'Content-Type':'application/json'
+                                },
+                                body:JSON.stringify({
+                                    'email':email,
+                                    'password':password
+                                })
+
+                            }).then(response=>response.json())
+                            .then(data=>{
+                                console.log(data.auth_token)
+                                localStorage.setItem('token',data.auth_token)
+                                window.location.href='/main'
+                            })
+                        })
+                    </script>   
+            </div>
+        </section>
+        <script src="/static/script.js"></script>
+    </body>
+</html>
+
